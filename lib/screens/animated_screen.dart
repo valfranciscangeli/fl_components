@@ -22,6 +22,7 @@ class _AnimatedScreenState extends State<AnimatedScreen> {
     _color = Color.fromARGB(
         255, random.nextInt(255), random.nextInt(255), random.nextInt(255));
     _borderRadius = BorderRadius.circular(random.nextInt(100).toDouble() + 10);
+    setState(() {});
   }
 
   @override
@@ -29,10 +30,12 @@ class _AnimatedScreenState extends State<AnimatedScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Animated Container')),
       body: Center(
-        child: Container(
+        child: AnimatedContainer(
           width: _width,
           height: _height,
           decoration: BoxDecoration(color: _color, borderRadius: _borderRadius),
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOutCubic,
         ),
       ),
       floatingActionButton: FloatingActionButton(
