@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class AppRoutes {
   static const initiaRoute = 'home';
   static final menuOptions = <MenuOption>[
-    // TODO: borrar home
     // MenuOption(
     //     route: 'home',
     //     name: 'Home Screen',
@@ -41,6 +40,11 @@ class AppRoutes {
         name: 'Animated Container',
         screen: const AnimatedScreen(),
         icon: Icons.play_circle_outline_rounded),
+        MenuOption(
+        route: 'inputs',
+        name: 'Text Inputs',
+        screen: const InputsScreen(),
+        icon: Icons.input_rounded),
   ];
 
   static Map<String, Widget Function(BuildContext)> getAppRoutes() {

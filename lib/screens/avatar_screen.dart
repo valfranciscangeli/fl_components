@@ -1,4 +1,3 @@
-import 'package:fl_components/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class AvatarScreen extends StatelessWidget {
