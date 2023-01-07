@@ -12,8 +12,8 @@ class AvatarScreen extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(right: 5),
           child: const CircleAvatar(
-            child: Text('LM'),
             backgroundColor: Color.fromARGB(255, 201, 73, 116),
+            child: Text('LM'),
           ),
         )
       ],),
