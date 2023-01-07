@@ -11,16 +11,36 @@ class InputsScreen extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Column(children: [
               TextFormField(
-                autofocus: true,
-                initialValue: 'Val Francis',
+                autofocus: false,
+                initialValue: null,
                 textCapitalization: TextCapitalization.words,
-                onChanged: ((value) {
+                onChanged: (value) {
                   print(value);
-                }),
-              )
+                },
+                validator: (value) {
+                  if (value == null) return 'Este campo es requerido';
+                  return value.length < 3 ? 'Minimo de 3 letras' : null;
+                },
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: const InputDecoration(
+                    hintText: 'Nombre del usuario',
+                    labelText: 'Nombre',
+                    helperText: 'Solo letras',
+                    prefixIcon: Icon(Icons.verified_user),
+                    suffixIcon: Icon(Icons.group_outlined),
+                    icon: Icon(Icons.assignment_ind_outlined),
+                    // focusedBorder: OutlineInputBorder(
+                    //     borderSide: BorderSide(color: Colors.green)),
+                    // border: OutlineInputBorder(
+                    //     borderRadius: BorderRadius.only(
+                    //   bottomLeft: Radius.circular(10),
+                    //   topRight: Radius.circular(10),
+                    // ))
+                    ),
+              ),
             ]),
           ),
         ));
