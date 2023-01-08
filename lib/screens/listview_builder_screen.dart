@@ -48,6 +48,14 @@ class _ListViewBuilderScreenState extends State<ListViewBuilderScreen> {
     setState(() {});
   }
 
+  Future<void> onRefresh() async {
+    await Future.delayed(const Duration(seconds: 2));
+    final lastId = imageIds.last;
+    imageIds.clear();
+    imageIds.add(lastId + 1);
+    add5();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -59,19 +67,23 @@ class _ListViewBuilderScreenState extends State<ListViewBuilderScreen> {
         removeBottom: true,
         child: Stack(
           children: [
-            ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              controller: scrollController,
-              itemCount: imageIds.length,
-              itemBuilder: (BuildContext context, int index) {
-                return FadeInImage(
-                    width: double.infinity,
-                    height: 300,
-                    fit: BoxFit.cover,
-                    placeholder: const AssetImage('assets/jar-loading.gif'),
-                    image: NetworkImage(
-                        'https://picsum.photos/500/300?image=${imageIds[index]}'));
-              },
+            RefreshIndicator(
+              onRefresh: onRefresh,
+              color: AppTheme.accent,
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                controller: scrollController,
+                itemCount: imageIds.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return FadeInImage(
+                      width: double.infinity,
+                      height: 300,
+                      fit: BoxFit.cover,
+                      placeholder: const AssetImage('assets/jar-loading.gif'),
+                      image: NetworkImage(
+                          'https://picsum.photos/500/300?image=${imageIds[index]}'));
+                },
+              ),
             ),
             if (isLoading)
               Positioned(
@@ -96,9 +108,9 @@ class _LoadingIcon extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       height: 60,
       width: 60,
-      child: const CircularProgressIndicator(color: AppTheme.primary),
       decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.9), shape: BoxShape.circle),
+      child: const CircularProgressIndicator(color: AppTheme.primary),
     );
   }
 }
